@@ -7,12 +7,10 @@ angular.module('remapApp', [
   'ngRoute'
 ])
   .config(function ($routeProvider, $locationProvider) {
-        $routeProvider
-            .when('/', {
-                redirectTo: '/main'
-            })
-            .otherwise({
-                redirectTo: '/'
-            });
-        $locationProvider.html5Mode(false);
+    $routeProvider
+      .otherwise({
+        redirectTo: '/'
+      });
+
+    $locationProvider.html5Mode(true);
   });

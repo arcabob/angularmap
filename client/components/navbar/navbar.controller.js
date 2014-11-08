@@ -3,9 +3,13 @@
 angular.module('remapApp')
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
-      'title': 'States Map',
+      'title': 'State Map',
       'link': '/'
-    }];
+    },
+        {
+            'title': 'About',
+            'link': '/about'
+        }];
 
     $scope.isCollapsed = true;
 
