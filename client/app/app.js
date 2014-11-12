@@ -4,7 +4,7 @@ angular.module('remapApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute','google-maps'.ns()
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -13,4 +13,11 @@ angular.module('remapApp', [
       });
 
     $locationProvider.html5Mode(true);
-  });
+  })
+  .config(['GoogleMapApiProvider'.ns(), function (GoogleMapApi) {
+    GoogleMapApi.configure({
+      //    key: 'your api key',
+      v: '3.17',
+      libraries: 'weather,geometry,visualization'
+    });
+  }]);
