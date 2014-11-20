@@ -10,6 +10,7 @@ angular.module('remapApp')
     $scope.map = {
       center: {latitude: 39.830033, longitude: -89.6400523 },
       zoom: 7,
+      control: {},
       layer: {
         show: true,
         options: {
@@ -40,10 +41,11 @@ angular.module('remapApp')
 
 
     $scope.$watch('currentState', function() {
-      $scope.map.layer.options.query = {
+      $scope.map.control.layer.options.query = {
         select: "geometry",
         from: "1OoBTpAqkASRRnJ_tsUOiswz06-0r2Nc9ncxQM68",
         where: "'State' = '" + $scope.currentState + "'"};
+      $scope.map.control.refresh();
     });
 
 
