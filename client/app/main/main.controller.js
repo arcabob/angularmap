@@ -5,12 +5,14 @@ angular.module('remapApp')
     $scope.awesomeThings = [];
     //$scope.map = { center: { latitude: 39.830033, longitude: -89.6400523 }, zoom: 7 ,mapTypeId: 'roadmap'};
 
-    $scope.currentState = 'IL';
+    $scope.currentState = '';
+    $scope.currentStateJSON = '';
 
     $scope.map = {
       center: {latitude: 39.830033, longitude: -89.6400523 },
       zoom: 7,
       control: {},
+
       layer: {
         show: true,
         options: {
@@ -28,6 +30,38 @@ angular.module('remapApp')
       }
     };
 
+    $scope.polygons = [
+      {
+        id: 1,
+        path: [
+          {
+            latitude: 50,
+            longitude: -80
+          },
+          {
+            latitude: 30,
+            longitude: -120
+          },
+          {
+            latitude: 20,
+            longitude: -95
+          }
+        ],
+        stroke: {
+          color: '#6060FB',
+          weight: 3
+        },
+        editable: true,
+        draggable: true,
+        geodesic: false,
+        visible: true,
+        fill: {
+          color: '#ff0000',
+          opacity: 0.8
+        }
+      }
+    ];
+
 
 /*
  ,
@@ -41,16 +75,12 @@ angular.module('remapApp')
 
 
     $scope.$watch('currentState', function() {
-      $scope.map.control.layer.options.query = {
-        select: "geometry",
-        from: "1OoBTpAqkASRRnJ_tsUOiswz06-0r2Nc9ncxQM68",
-        where: "'State' = '" + $scope.currentState + "'"};
-      $scope.map.control.refresh();
+      if($scope.currentState!=''){
+        $http.get('/api/states/').success(function(stateJSON) {
+          $scope.currentStateJSON = stateJSON;
+          $scope.polygons = stateJSON;
+        });
+      }
     });
-
-
-    /*$http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-    });*/
 
   });
